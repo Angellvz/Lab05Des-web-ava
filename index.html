@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat con Socket.IO</title>
+    <!-- Importa la libreria de Socket.IO  -->
+    <script src="/socket.io/socket.io.js"></script> 
+    <script>
+        // Conexión de Socket.IO al servidor
+        var socket = io(); // Establece la conexión con el servidor
+
+        // func para enviar mensajes del chat 1
+        function enviarMensaje1() {
+            var mensaje = document.getElementById('mensaje1').value; // obtiene el mensaje del chat 1 ingresado 
+            socket.emit('chat message 1', mensaje); // realiza un evento 'chat message 1' al servidor con el mensaje del chat 1
+            document.getElementById('mensaje1').value = ''; // Limpia el campo de texto del chat 1
+            return false; // Evita que se recargue la página al enviar el mensaje
+        }
+
+        // func para recibir mensajes del chat 1
+        socket.on('chat message 1', function(msg){
+            var listaMensajes = document.getElementById('lista-mensajes'); // obtiene la lista de mensajes
+            var mensaje = document.createElement('li'); // crea un elemento de lista para el nuevo mensaje
+            mensaje.textContent = "Chat 1: " + msg; // establece el texto del nuevo mensaje
+            listaMensajes.appendChild(mensaje); // agrega el nuevo mensaje a la lista de mensajes
+        });
+
+        // func para nviar mensajes del chat 2
+        function enviarMensaje2() {
+            var mensaje = document.getElementById('mensaje2').value; // obtiene el mensaje del chat 2 ingresado por el usuario
+            socket.emit('chat message 2', mensaje); // emite un evento 'chat message 2' al servidor con el mensaje del chat 2
+            document.getElementById('mensaje2').value = ''; // limpia el campo de texto del chat 2
+            return false; // evita que se recargue la página al enviar el mensaje
+        }
+
+        // func para recibir mensajes del chat 2
+        socket.on('chat message 2', function(msg){
+            var listaMensajes = document.getElementById('lista-mensajes'); // Obtiene la lista de mensajes
+            var mensaje = document.createElement('li'); // Crea un elemento de lista para el nuevo mensaje
+            mensaje.textContent = "Chat 2: " + msg; // Establece el texto del nuevo mensaje
+            listaMensajes.appendChild(mensaje); // Agrega el nuevo mensaje a la lista de mensajes
+        });
+    </script>
+</head>
+<body>
+    <h1>Chat 1</h1>
+    <form onsubmit="return enviarMensaje1()//aqui al dar submit del chat 1 se llama la fncion enviarMensaje1">
+        <input id="mensaje1" autocomplete="off" />
+        <button>Enviar</button>
+    </form>
+
+    <h1>Chat 2</h1>
+    <form onsubmit="return enviarMensaje2()//aqui al dar submit del chat 2 se llama la funcion enviarMensjae2">
+        <input id="mensaje2" autocomplete="off" />
+        <button>Enviar</button>
+    </form>
+
+    <h1>Mensajes</h1>
+    <ul id="lista-mensajes"></ul> <!-- Aquí se mostrarán los mensajes del chat -->
+</body>
+</html>
+
