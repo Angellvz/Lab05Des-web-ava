@@ -15,15 +15,17 @@ io.on('connection', function(socket){
 
     // Escuchar el evento 'chat message 1' para el chat 1
     socket.on('chat message 1', function(msg){
-        console.log('Mensaje del chat 1: ' + msg);  // muestra los mensajes en consola
-        io.emit('chat message 1', msg);             // emite el mensjae en la lista de mensajes html
-    });
+    console.log('Mensaje del chat 1: ' + msg);  // muestra los mensajes en consola
+    const mensajeConHora = `${msg}`; // Agrega la hora al mensaje
+    io.emit('chat message 1', mensajeConHora);             // emite el mensaje con la hora en la lista de mensajes html
+});
 
-    // Escuchar el evento 'chat message 2' para el chat 2
+// Escuchar el evento 'chat message 2' para el chat 2
     socket.on('chat message 2', function(msg){
-        console.log('Mensaje del chat 2: ' + msg);  // muestra los mensajes en consola
-        io.emit('chat message 2', msg);             // emite el mensjae en la lista de mensajes html
-    });
+    console.log('Mensaje del chat 2: ' + msg);  // muestra los mensajes en consola
+    const mensajeConHora = `${msg}`; // Agrega la hora al mensaje
+    io.emit('chat message 2', mensajeConHora);             // emite el mensaje con la hora en la lista de mensajes html
+});
 
     // Escuchar la desconexión del usuario
     socket.on('disconnect', function(){
